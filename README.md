@@ -2,6 +2,22 @@
 
 A Chrome side panel extension that auto-fills with your copied text and lets you ask Claude questions about it.
 
+![Screenshot](screenshot.png)
+
+## Architecture
+
+```mermaid
+flowchart LR
+    User([User]) -->|Cmd+C| Clipboard[Clipboard]
+    Clipboard -->|on focus| Panel["Chrome Side Panel\n(sidepanel.js)"]
+    User -->|types question + Enter| Panel
+    Panel -->|POST /chat\nX-API-Key| API["Document Intelligence API\n(Hetzner VPS)"]
+    API -->|invoke| Bedrock["AWS Bedrock\nClaude 3.5 Haiku"]
+    Bedrock -->|answer| API
+    API -->|JSON response| Panel
+    Panel -->|displays answer| User
+```
+
 ## How it works
 
 1. Copy any text on any page (`Cmd+C`)
