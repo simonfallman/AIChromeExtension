@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Assistant</title>
+  <link rel="stylesheet" href="sidepanel.css" />
+</head>
+<body>
+  <div class="header">
+    <span class="title">AI Assistant</span>
+    <button class="gear-btn" id="toggleSettings" title="Settings">⚙</button>
+  </div>
+
+  <div class="settings" id="settings" hidden>
+    <label>API Key</label>
+    <input type="password" id="apiKey" placeholder="Your API key" />
+    <label>API URL</label>
+    <input type="text" id="apiUrl" placeholder="https://simonfallman.xyz/api/chat" />
+    <button id="saveSettings">Save</button>
+    <span class="saved-msg" id="savedMsg"></span>
+  </div>
+
+  <div class="section">
+    <label>Selected text</label>
+    <textarea id="context" placeholder="Select text on a page, then open this panel…" rows="6"></textarea>
+    <button class="secondary" id="refreshText">Grab selected text</button>
+  </div>
+
+  <div class="section">
+    <label>Question</label>
+    <div class="input-row">
+      <input type="text" id="question" placeholder="Ask something…" />
+      <button id="askBtn">Ask</button>
+    </div>
+  </div>
+
+  <div class="section" id="answerSection" hidden>
+    <label>Answer</label>
+    <div class="answer" id="answer"></div>
+  </div>
+
+  <div class="error" id="error" hidden></div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>
