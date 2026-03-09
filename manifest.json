@@ -3,7 +3,7 @@
   "name": "AI Text Assistant",
   "version": "1.0",
   "description": "Copy any text, ask Claude a question about it.",
-  "permissions": ["sidePanel", "activeTab", "scripting", "storage"],
+  "permissions": ["sidePanel", "activeTab", "scripting", "storage", "clipboardRead"],
   "host_permissions": ["https://simonfallman.xyz/*"],
   "background": {
     "service_worker": "background.js"

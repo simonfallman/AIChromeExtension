@@ -35,14 +35,21 @@ els.saveSettings.addEventListener("click", () => {
   setTimeout(() => (els.savedMsg.textContent = ""), 2000);
 });
 
-// ── Auto-fill from copy ──────────────────────────────────────────────────────
+// ── Auto-fill from clipboard ─────────────────────────────────────────────────
 
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === "TEXT_COPIED" && msg.text) {
-    els.context.value = msg.text;
-    els.question.focus();
+async function syncClipboard() {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (text && text.trim() && text.trim() !== els.context.value) {
+      els.context.value = text.trim();
+    }
+  } catch {
+    // Clipboard read blocked (e.g. focus not on window)
   }
-});
+}
+
+syncClipboard();
+window.addEventListener("focus", syncClipboard);
 
 // ── Ask ──────────────────────────────────────────────────────────────────────
 
