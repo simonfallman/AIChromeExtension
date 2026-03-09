@@ -9,9 +9,9 @@ A Chrome side panel extension that auto-fills with your copied text and lets you
 ```mermaid
 flowchart LR
     User([User]) -->|Cmd+C| Clipboard[Clipboard]
-    Clipboard -->|on focus| Panel["Chrome Side Panel\n(sidepanel.js)"]
+    Clipboard -->|on focus| Panel["Chrome Side Panel"]
     User -->|types question + Enter| Panel
-    Panel -->|POST /chat\nX-API-Key| API["Document Intelligence API\n(Hetzner VPS)"]
+    Panel -->|POST /chat| API["Document Intelligence API<br/>(Hetzner VPS)"]
     API -->|invoke| Bedrock["AWS Bedrock\nClaude 3.5 Haiku"]
     Bedrock -->|answer| API
     API -->|JSON response| Panel
