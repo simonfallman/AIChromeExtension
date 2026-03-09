@@ -43,4 +43,4 @@ You need a running instance of the [Document Intelligence API](https://github.co
 
 ## Built by
 
-Simon Fallman — [linkedin.com/in/simonfallman](https://www.linkedin.com/in/simonfallman)
+Simon Fällman — [linkedin.com/in/simonfallman](https://www.linkedin.com/in/simonfallman)
