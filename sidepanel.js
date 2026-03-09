@@ -8,7 +8,6 @@ const els = {
   saveSettings:   document.getElementById("saveSettings"),
   savedMsg:       document.getElementById("savedMsg"),
   context:        document.getElementById("context"),
-  refreshText:    document.getElementById("refreshText"),
   question:       document.getElementById("question"),
   askBtn:         document.getElementById("askBtn"),
   answerSection:  document.getElementById("answerSection"),
@@ -24,7 +23,7 @@ chrome.storage.local.get(["apiKey", "apiUrl"], ({ apiKey, apiUrl }) => {
 });
 
 els.toggleSettings.addEventListener("click", () => {
-  els.settings.hidden = !els.settings.hidden;
+  els.settings.classList.toggle("visible");
 });
 
 els.saveSettings.addEventListener("click", () => {
@@ -36,24 +35,14 @@ els.saveSettings.addEventListener("click", () => {
   setTimeout(() => (els.savedMsg.textContent = ""), 2000);
 });
 
-// ── Grab selected text from active tab ──────────────────────────────────────
+// ── Auto-fill from copy ──────────────────────────────────────────────────────
 
-async function grabSelectedText() {
-  try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (!tab?.id) return;
-    const [{ result }] = await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: () => window.getSelection().toString().trim(),
-    });
-    if (result) els.context.value = result;
-  } catch {
-    // Silently ignore — scripting may be blocked on chrome:// pages
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg.type === "TEXT_COPIED" && msg.text) {
+    els.context.value = msg.text;
+    els.question.focus();
   }
-}
-
-grabSelectedText();
-els.refreshText.addEventListener("click", grabSelectedText);
+});
 
 // ── Ask ──────────────────────────────────────────────────────────────────────
 
@@ -80,7 +69,7 @@ els.askBtn.addEventListener("click", async () => {
   const question = els.question.value.trim();
 
   if (!key) return showError("Add your API key in settings (⚙).");
-  if (!context) return showError("No text selected. Select text on the page and click 'Grab selected text'.");
+  if (!context) return showError("Copy some text on the page first.");
   if (!question) return showError("Enter a question.");
 
   els.askBtn.disabled = true;

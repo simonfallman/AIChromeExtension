@@ -31,8 +31,8 @@ body {
 .gear-btn {
   background: none;
   border: none;
-  color: #888;
-  font-size: 16px;
+  color: #555;
+  font-size: 15px;
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 4px;
@@ -40,17 +40,21 @@ body {
 
 .gear-btn:hover {
   background: #2a2a2a;
-  color: #ccc;
+  color: #aaa;
 }
 
 .settings {
+  display: none;
   background: #222;
   border: 1px solid #333;
   border-radius: 6px;
   padding: 10px;
-  display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.settings.visible {
+  display: flex;
 }
 
 .section {
@@ -62,7 +66,7 @@ body {
 label {
   font-size: 11px;
   font-weight: 500;
-  color: #888;
+  color: #666;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -71,7 +75,7 @@ input[type="text"],
 input[type="password"],
 textarea {
   background: #222;
-  border: 1px solid #333;
+  border: 1px solid #2e2e2e;
   border-radius: 6px;
   color: #e0e0e0;
   font-size: 13px;
@@ -85,7 +89,7 @@ textarea {
 input[type="text"]:focus,
 input[type="password"]:focus,
 textarea:focus {
-  border-color: #555;
+  border-color: #444;
 }
 
 .input-row {
@@ -114,27 +118,14 @@ button:hover {
 }
 
 button:disabled {
-  background: #333;
-  color: #666;
-  cursor: not-allowed;
-}
-
-button.secondary {
   background: #2a2a2a;
-  color: #aaa;
-  font-size: 12px;
-  padding: 5px 10px;
-  align-self: flex-start;
-}
-
-button.secondary:hover {
-  background: #333;
-  color: #ccc;
+  color: #555;
+  cursor: not-allowed;
 }
 
 .answer {
   background: #222;
-  border: 1px solid #333;
+  border: 1px solid #2e2e2e;
   border-radius: 6px;
   padding: 10px;
   line-height: 1.6;
